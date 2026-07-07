@@ -16,14 +16,13 @@ Sviluppato con Django e Django REST Framework, che, grazie al supporto build-in 
 ---
 
 ## ⋆ account demo (dati di test)
-Il database SQLite incluso è già popolato tramite comando di seed. Di seguito le credenziali disponibili per la valutazione dei diversi ruoli e permessi:
+Il database SQLite incluso (`db.sqlite3`) è già pre-popolato con i seguenti utenti di test, utili per verificare i permessi e le funzionalità dell'applicazione sia in locale che sull'istanza online:
 
-| Username | Password | Ruolo | Descrizione |
+| Username | Password | Ruolo / Permessi | Descrizione |
 | :--- | :--- | :--- | :--- |
-| `user_demo` | `user12345` | Standard User | Può creare post, commenti, mettere like e seguire utenti. |
-| `mod_demo` | `moderator12345` | Moderator | Può visualizzare i contenuti e cancellare post inappropriati. |
-| `admin_demo` | `admin12345` | Superuser / Mod | Accesso completo al pannello di amministrazione. |
-
+| **admin_demo** | `admin12345` | Administrator (Superuser) | Accesso totale al pannello di controllo Django. |
+| **manager_demo** | `manager12345` | Moderator | Ruolo avanzato: può bloccare utenti e moderare contenuti. |
+| **user_demo** | `user12345` | Standard User | Utente base: può creare post, inserire commenti e mettere like. |
 ---
 
 ## ⋆ documentazione degli Endpoint API
