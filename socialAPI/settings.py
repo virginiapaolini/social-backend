@@ -136,3 +136,17 @@ REST_FRAMEWORK = {
     )
 }
 
+# permettiamo a Django di rispondere sul dominio di Render e localmente
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
+
+# config di sicurezza consigliata (vedere slide) per il deploy
+DEBUG = True  # True per permettere di vedere gli errori dell'API
+
+# sb deve rimanere puntato sul file locale relativo alla cartella principale
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'LOCATION': BASE_DIR / 'db.sqlite3',
+    }
+}
+
