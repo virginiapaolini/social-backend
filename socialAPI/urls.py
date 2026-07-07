@@ -28,8 +28,9 @@ from rest_framework.reverse import reverse
 @permission_classes([AllowAny])
 def api_home_view(request, format=None):
     """
-    Benvenut* nella Social Media REST API!
-    questa è la pagina principale del back-end... sotto trovi una lista degli endpoint principali disponibili
+    welcome to the -ˏˋ⋆ social network rest api  ⋆ˊˎ-
+    this is the home page
+    you can see displayed here a list of available endpoints
     """
     return Response({
         "info": {
