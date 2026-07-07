@@ -1,7 +1,7 @@
 """
-URL configuration for socialAPI project.
+URL configuration for the socialAPI project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The `urlpatterns` list routes URLs to views. For more info please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
 Function views
@@ -17,28 +17,38 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.http import JsonResponse
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 
+# uso interfaccia web di Django REST Framework!!!
 
-# aggiungo semplice vista direttamente qui per l'home page dell'API
-def api_home_view(request):
-    return JsonResponse({
-        "name": "Social Media REST API",
-        "description": "Progetto finale per il corso di Back-end PPM 2026.",
-        "status": "online",
-        "endpoints": {
-            "auth_login": "/api/auth/login/",
-            "users_list": "/api/users/",
-            "posts_list": "/api/posts/",
-            "feed": "/api/feed/"
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def api_home_view(request, format=None):
+    """
+    Benvenut* nella Social Media REST API!
+    questa è la pagina principale del back-end... sotto trovi una lista degli endpoint principali disponibili
+    """
+    return Response({
+        "info": {
+            "project_name": "Social Media REST API",
+            "description": "Progetto finale per il corso di Back-end PPM 2026.",
+            "status": "ONLINE",
+            "version": "1.0.0"
+        },
+        "endpoints_disponibili": {
+            "autenticazione_login": reverse('token_obtain_pair', request=request, format=format),
+            "lista_utenti": reverse('user-list', request=request, format=format),
+            "lista_post": reverse('post-list', request=request, format=format),
+            "feed_personalizzato": reverse('feed-timeline', request=request, format=format)
         }
-    }, status=200)
+    })
 
 
 urlpatterns = [
-#rotta per percorso vuoto
     path('', api_home_view, name='api-home'),
-
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),
     path('api/', include('posts.urls')),

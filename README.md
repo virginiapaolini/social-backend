@@ -1,9 +1,17 @@
 # -ˏˋ⋆ social network rest api  ⋆ˊˎ-
 
-Progetto finale di Back-end per il corso di PPM 2026.
-Sviluppato con Django e Django REST Framework.
+**URL di deployment:** <https://social-backend-xwsc.onrender.com>
 
-**URL di Deployment:** [link render]
+Progetto finale di Back-end per il corso di PPM (2025/2026) focalizzato sull'API design per apprendere al meglio la separazione tra client e back-end.
+
+Tra le caratteristiche principali si ha:
+- REST endpoints
+- token/JWT authentication
+- serializers/request validation
+- role-based permissions
+- JSON responses
+- documented testing workflow (grazie ad httpie)
+Sviluppato con Django e Django REST Framework, che, grazie al supporto build-in per modelli, autenticazione, permessi,form, serializers, class-based views.
 
 ---
 
