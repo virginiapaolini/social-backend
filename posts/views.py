@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from .permissions import IsAuthorOrModeratorOrReadOnly
+from rest_framework.filters import SearchFilter
+from django.shortcuts import get_object_or_404
 
 
 class PostListCreateView(generics.ListCreateAPIView):
@@ -11,6 +13,9 @@ class PostListCreateView(generics.ListCreateAPIView):
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    filter_backends = [SearchFilter]
+    search_fields = ['content', 'author__username']
 
     def perform_create(self, serializer):
         # associa automaticamente l'utente loggato come autore del post
@@ -21,7 +26,7 @@ class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     """Endpoint per leggere, aggiornare o eliminare un singolo post (CR_D)"""
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    # Applichiamo il nostro controllo permessi personalizzato!
+    # applico il  controllo permessi personalizzato!
     permission_classes = [permissions.IsAuthenticated, IsAuthorOrModeratorOrReadOnly]
 
 
@@ -65,3 +70,28 @@ class CommentCreateView(generics.CreateAPIView):
             return Response({"error": "Post non trovato."}, status=status.HTTP_404_NOT_FOUND)
 
         serializer.save(author=self.request.user, post=post)
+
+class ToggleLikeView(APIView):
+    """Endpoint per mettere o togliere il like a un post (Toggle)"""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, post_id):
+        # intanto prendo il post (se non esiste, Django lancia un 404 automatico)
+        post = get_object_or_404(Post, id=post_id)
+        user = request.user
+
+        # controllo se l'utente ha già messo like a questo post
+        if post.likes.filter(id=user.id).exists():
+            # se esiste già, togliamo il like (Unlike)
+            post.likes.remove(user)
+            return Response(
+                {"message": "Like rimosso con successo.", "liked": False},
+                status=status.HTTP_200_OK
+            )
+        else:
+            # se non esiste, aggiungiamo il like (Like)!!!
+            post.likes.add(user)
+            return Response(
+                {"message": "Like aggiunto con successo.", "liked": True},
+                status=status.HTTP_200_OK
+            )

@@ -35,3 +35,15 @@ class PostSerializer(serializers.ModelSerializer):
         if len(clean_value) < 5:
             raise serializers.ValidationError("Il contenuto del post deve essere lungo almeno 5 caratteri.")
         return clean_value
+
+    # calcola il numero di likes in tempo reale!
+    def get_likes_count(self, obj):
+        # ipotizzando che nel modello Post ci sia una relazione 'likes'
+        if hasattr(obj, 'likes'):
+            return obj.likes.count()
+        return 0
+
+    # calcola il numero di commenti in tempo reale!
+    def get_comments_count(self, obj):
+        # Sfrutta la relazione inversa (o il campo comments del tuo modello)
+        return obj.comments.count()

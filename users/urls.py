@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import RegisterView, UserListView, FollowUserView
+from .views import RegisterView, UserListView, FollowUserView, BlockUserView
 
 urlpatterns = [
     # endpoint di autenticazione (per jwt)
@@ -8,7 +8,10 @@ urlpatterns = [
     path('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/register/', RegisterView.as_view(), name='auth_register'),
 
+
     # Endpoint Utenti
     path('users/', UserListView.as_view(), name='user_list'),
     path('users/<int:user_id>/follow/', FollowUserView.as_view(), name='user_follow'),
+path('users/<int:user_id>/block/', BlockUserView.as_view(), name='user-block'),
+
 ]
