@@ -157,4 +157,4 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+WHITENOISE_MANIFEST_STRICT = False
