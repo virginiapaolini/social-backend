@@ -18,63 +18,73 @@ Il database SQLite incluso è già popolato tramite comando di seed. Di seguito 
 
 ---
 
-## scenario di verifica delle Sspecifiche (comandi cURL / HTTP Client)
+## documentazione degli Endpoint API
 
-Di seguito viene descritto lo scenario passo-passo per verificare i requisiti minimi richiesti dal bando (Autenticazione, CRUD, validazione JSON e permessi sui ruoli).
+| Metodo | URL | Autenticazione | Ruolo Consentito | Richiesta (Body JSON) | Descrizione |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **POST** | `/api/auth/login/` | No | Pubblico | `{"username": "...", "password": "..."}` | Effettua il login e restituisce i Token JWT (access/refresh). |
+| **GET** | `/api/users/` | Sì (JWT) | Qualsiasi ruolo autenticato | Nessuno | Restituisce la lista di tutti gli utenti registrati. |
+| **POST** | `/api/users/<id>/follow/` | Sì (JWT) | STANDARD, MODERATOR | Nessuno | Permette di seguire o smettere di seguire l'utente specificato. |
+| **GET** | `/api/posts/` | Sì (JWT) | Qualsiasi ruolo autenticato | Nessuno | Mostra la lista globale di tutti i post. |
+| **POST** | `/api/posts/` | Sì (JWT) | STANDARD, MODERATOR | `{"content": "Testo del post (min 5 caratteri)"}` | Crea un nuovo post associando l'utente come autore. |
+| **PUT** | `/api/posts/<id>/` | Sì (JWT) | Solo l'Autore originario | `{"content": "Nuovo testo modificato"}` | Aggiorna un post esistente. Restituisce 403 se non si è l'autore. |
+| **DELETE**| `/api/posts/<id>/` | Sì (JWT) | Autore o MODERATOR | Nessuno | Elimina un post. Consentito all'autore o a utenti Moderatori. |
+| **POST** | `/api/posts/<id>/like/` | Sì (JWT) | STANDARD, MODERATOR | Nessuno | Aggiunge o rimuove il "Like" al post indicato. |
+| **GET** | `/api/feed/` | Sì (JWT) | STANDARD, MODERATOR | Nessuno | Restituisce il feed personalizzato con i post degli utenti seguiti. |
 
-*(Nota: Sostituire `http://127.0.0.1:8000` con l'URL di Render se il test viene eseguito sulla versione live online).*
+## workflow di testing con HTTPie (Client-Based Scenario)
 
-### 1. autenticazione (ottenere il Token JWT)
-Inviare una richiesta **POST** all'endpoint di login per autenticare l'utente e ricevere i relativi Token JWT:
+Viene utilizzato **HTTPie** (https://httpie.io/) come client di test minimale per superare i problemi di parsing delle virgolette sui terminali Windows.
 
+### 1. Installazione del Client di Test
+Assicurandosi di avere l'ambiente virtuale attivo, installare HTTPie tramite pip:
 ```bash
-curl -X POST [http://127.0.0.1:8000/api/auth/login/](http://127.0.0.1:8000/api/auth/login/) \
-     -H "Content-Type: application/json" \
-     -d '{"username": "user_demo", "password": "user12345"}'
+pip install httpie
 
 ```
 
-*Risultato atteso:* Ricezione delle due stringhe JSON `access` e `refresh`. Copiare il token contenuto nel campo `access` per utilizzarlo nelle richieste successive.
+### 2. Autenticazione (Ottenere il Token JWT)
 
-### 2. chiamata a un endpoint autenticato (vedere la lista utenti)
-
-Inviare una richiesta **GET** inserendo il token nell'Header di autorizzazione per visualizzare la lista degli iscritti:
+Inviare le credenziali dell'utente standard per ricevere i token:
 
 ```bash
-curl -X GET [http://127.0.0.1:8000/api/users/](http://127.0.0.1:8000/api/users/) \
-     -H "Authorization: Bearer <INSERISCI_IL_TOKEN_ACCESS_QUI>"
+http POST [http://127.0.0.1:8000/api/auth/login/](http://127.0.0.1:8000/api/auth/login/) username=user_demo password=user12345
 
 ```
 
-*Risultato atteso:* Elenco completo degli utenti in formato JSON. Se eseguito senza l'header di autorizzazione o con un token errato, il sistema blocca la richiesta restituendo `401 Unauthorized`.
+*Risposta attesa:* Stato `200 OK` con i token `access` e `refresh`. Copiare il valore di `access` (senza virgolette).
 
-### 3. creazione dati con validazione JSON (crea un post)
+### 3. Chiamata a Endpoint Autenticato (Lettura Dati)
 
-Inviare una richiesta **POST** per pubblicare un nuovo contenuto inserendo il testo nel corpo JSON:
+Visualizzare la lista degli utenti inserendo il token nell'header di autorizzazione (sostituire `<TOKEN>` con il valore copiato):
 
 ```bash
-curl -X POST [http://127.0.0.1:8000/api/posts/](http://127.0.0.1:8000/api/posts/) \
-     -H "Authorization: Bearer <INSERISCI_IL_TOKEN_ACCESS_QUI>" \
-     -H "Content-Type: application/json" \
-     -d '{"content": "Nuovo post strutturato secondo linee guida!"}'
+http GET [http://127.0.0.1:8000/api/users/](http://127.0.0.1:8000/api/users/) "Authorization: Bearer <TOKEN>"
 
 ```
 
-*Risultato atteso:* Risposta con stato `201 Created` e generazione del record del Post (es. con ID `1`).
-*Nota sulla validazione:* Se si tenta di inviare un testo inferiore a 5 caratteri o vuoto, il sistema risponde con `400 Bad Request` mostrando l'errore di validazione JSON.
+*Risposta attesa:* Stato `200 OK` con l'elenco JSON degli utenti.
 
-### 4. test azione proibita (sicurezza & permessi)
+### 4. Creazione Dati con Validazione JSON
 
-Per verificare il corretto isolamento e la sicurezza dei dati, provare a effettuare una modifica (**PUT** o **PATCH**) sul post appena creato (ID 1) utilizzando il token di un utente che non ne è l'autore (ad esempio effettuando il login con `mod_demo` o registrandone uno nuovo):
+Provare a inserire un nuovo post sulla piattaforma:
 
 ```bash
-curl -X PUT [http://127.0.0.1:8000/api/posts/1/](http://127.0.0.1:8000/api/posts/1/) \
-     -H "Authorization: Bearer <TOKEN_DI_UN_ALTRO_UTENTE>" \
-     -H "Content-Type: application/json" \
-     -d '{"content": "Tentativo di modifica non autorizzata"}'
+http POST [http://127.0.0.1:8000/api/posts/](http://127.0.0.1:8000/api/posts/) content="Nuovo post strutturato secondo linee guida!" "Authorization: Bearer <TOKEN>"
 
 ```
 
-*Risultato atteso:* Risposta con stato `403 Forbidden`. L'applicazione rifiuta la richiesta in quanto l'utente autenticato non coincide con l'autore originario del post, rispettando i vincoli di sicurezza impostati.
+*Risposta attesa:* Stato `201 Created`.
+*Verifica Validazione:* Se si invia un testo inferiore a 5 caratteri (es. `content="Ciao"`), l'API risponde correttamente con `400 Bad Request` esponendo l'errore di validazione del Serializer.
 
+### 5. Test di un'Azione Proibita (Verifica Sicurezza Permessi)
+
+Per verificare che i permessi siano applicati nella logica di business e non solo descritti, proviamo a modificare il post con ID `1` (il cui autore è `admin_demo`) usando il token appena generato di `user_demo`:
+
+```bash
+http PUT [http://127.0.0.1:8000/api/posts/1/](http://127.0.0.1:8000/api/posts/1/) content="Tentativo di modifica abusiva" "Authorization: Bearer <TOKEN>"
+
+```
+
+*Risposta attesa:* **`403 Forbidden`**. L'applicazione blocca la richiesta poiché l'utente autenticato non ha i permessi di autore sull'oggetto, confermando la robustezza del sistema.
 
