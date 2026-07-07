@@ -17,11 +17,30 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.http import JsonResponse
+
+
+# aggiungo semplice vista direttamente qui per l'home page dell'API
+def api_home_view(request):
+    return JsonResponse({
+        "name": "Social Media REST API",
+        "description": "Progetto finale per il corso di Back-end PPM 2026.",
+        "status": "online",
+        "endpoints": {
+            "auth_login": "/api/auth/login/",
+            "users_list": "/api/users/",
+            "posts_list": "/api/posts/",
+            "feed": "/api/feed/"
+        }
+    }, status=200)
+
 
 urlpatterns = [
+#rotta per percorso vuoto
+    path('', api_home_view, name='api-home'),
+
     path('admin/', admin.site.urls),
-    path('api/', include('users.urls')), # include le rotte dell'app users sotto il prefisso /api/
-    path('api/', include('posts.urls')), # aggiunge gli endpoint dei post sotto /api/
- # abilita il login/logout grafico del REST framework
+    path('api/', include('users.urls')),
+    path('api/', include('posts.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ]
