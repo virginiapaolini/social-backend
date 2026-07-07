@@ -15,7 +15,7 @@ Sviluppato con Django e Django REST Framework, che, grazie al supporto build-in 
 
 ---
 
-## account demo (dati di test)
+## ⋆ account demo (dati di test)
 Il database SQLite incluso è già popolato tramite comando di seed. Di seguito le credenziali disponibili per la valutazione dei diversi ruoli e permessi:
 
 | Username | Password | Ruolo | Descrizione |
@@ -26,7 +26,7 @@ Il database SQLite incluso è già popolato tramite comando di seed. Di seguito 
 
 ---
 
-## documentazione degli Endpoint API
+## ⋆ documentazione degli Endpoint API
 
 | Metodo | URL | Autenticazione | Ruolo Consentito | Richiesta (Body JSON) | Descrizione |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -40,7 +40,7 @@ Il database SQLite incluso è già popolato tramite comando di seed. Di seguito 
 | **POST** | `/api/posts/<id>/like/` | Sì (JWT) | STANDARD, MODERATOR | Nessuno | Aggiunge o rimuove il "Like" al post indicato. |
 | **GET** | `/api/feed/` | Sì (JWT) | STANDARD, MODERATOR | Nessuno | Restituisce il feed personalizzato con i post degli utenti seguiti. |
 
-## workflow di testing con HTTPie (Client-Based Scenario)
+## ⋆ workflow di testing con HTTPie (Client-Based Scenario)
 
 Viene utilizzato **HTTPie** (https://httpie.io/) come client di test minimale per superare i problemi di parsing delle virgolette sui terminali Windows.
 
