@@ -41,7 +41,7 @@ def api_home_view(request, format=None):
         "endpoints_disponibili": {
             "autenticazione_login": reverse('token_obtain_pair', request=request, format=format),
             "lista_utenti": reverse('user_list', request=request, format=format),
-            "lista_post": reverse('post_list', request=request, format=format),
+            "lista_post": reverse('post_list_create', request=request, format=format),
             "feed_personalizzato": reverse('user_feed', request=request, format=format)
         }
     })
