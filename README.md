@@ -2,24 +2,27 @@
 # -ˏˋ⋆ social network REST API ⋆ˊˎ-
 
 Progetto finale di Back-end per il corso di PPM (2026).
+Benvenut* nella **Social Network REST API**, un ecosistema back-end performante e sicuro strutturato secondo i più moderni standard del web. L'applicazione non si limita a archiviare informazioni, ma dà vita a una vera e propria rete di interazioni sociali digitali:
+- *autenticazione blindata:* acesso sicuro garantito dallo standard **JSON Web Token (JWT)** con rotazione automatica delle chiavi di sessione.
+- *relazioni dinamiche:* un sistema di connessioni fluido che permette agli utenti di seguirsi a vicenda, creando una rete sociale personalizzata.
+- *feed intelligente:* un algoritmo ottimizzato che aggrega in tempo reale i contenuti pubblicati dagli utenti seguiti, ordinandoli cronologicamente per offrire un'esperienza d'uso naturale e immediata.
+- *interazioni ad alto coinvolgimento*: possibilità di esprimere apprezzamento tramite like dinamici e di partecipare alle discussioni con un sistema di commenti nidificato.
+- *controllo e moderazione (role-based access control):* una solida gerarchia di permessi protegge la community, separando i poteri degli utenti standard, dei moderatori (incaricati della sicurezza dei contenuti e del blocco utenti) e dell'amministratore.
+
 
 ## ⋆ tipo di progetto
 
 **REST API**:  A back-end application with REST endpoints, token/JWT authentication, serializers or request validation, role-based permissions, JSON responses, and a documented testing workflow or minimal client.
 
-## ⋆ framework utilizzati
 
-- Python 3.11
-- Django
-- Django REST Framework
-- Simple JWT per autenticazione JWT
-- SQLite come database locale
-
+## ⋆ link di deployment online
+Il deployment è stato fatto su Render:
+<https://social-backend-xwsc.onrender.com>
 ---
 
 ## ⋆ descrizione del progetto
 
-Questa applicazione è una REST API per un piccolo social network.
+Questa applicazione è una REST API per un piccolo e semplice social network.
 
 La piattaforma permette agli utenti registrati di:
 - autenticarsi tramite JWT
@@ -35,6 +38,15 @@ Sono presenti ruoli diversi, in particolare:
 - utente standard
 - moderatore
 - amministratore/superuser
+---
+
+## ⋆ framework utilizzati
+
+- Python 3.11
+- Django
+- Django REST Framework
+- Simple JWT per autenticazione JWT
+- SQLite come database locale
 
 ---
 
@@ -81,7 +93,7 @@ L'amministratore può:
 
 ---
 
-## Database locale SQLite
+## ⋆ database locale SQLite
 
 Il progetto include un database SQLite locale:
 ```text
@@ -139,12 +151,6 @@ L'API sarà disponibile all'indirizzo:
 http://127.0.0.1:8000/
 ```
 ---
-
-## ⋆ link di deployment online
-<https://social-backend-xwsc.onrender.com>
-
----
-
 ## ⋆ account demo
 
 Dopo aver eseguito:
@@ -623,6 +629,4 @@ http GET http://127.0.0.1:8000/api/feed/ "Authorization: Bearer <TOKEN>"
 ⋆
 
 Corso Progettazione e Produzione multimediale (2025/2026)\
-Virginia Paolini\
-matricola 7149020\
-virginia.paolini@edu.unifi.it
+Virginia Paolini
