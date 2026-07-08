@@ -471,7 +471,7 @@ http POST http://127.0.0.1:8000/api/auth/login/ username=user_demo password=user
 ```
 Poi provare a modificare un post creato da un altro utente, per esempio un post del moderatore o dell'admin:
 ```bash
-http PUT http://127.0.0.1:8000/api/posts/3/ content="Tentativo di modifica abusiva" "Authorization: Bearer <TOKEN>"
+http PUT http://127.0.0.1:8000/api/posts/12/ content="Tentativo di modifica abusiva" "Authorization: Bearer <TOKEN>"
 ```
 Risposta attesa:
 ```
@@ -496,7 +496,7 @@ Copiare il token `access` del moderatore.
 
 Poi bloccare un utente:
 ```bash
-http POST http://127.0.0.1:8000/api/users/3/block/ "Authorization: Bearer <MOD_TOKEN>"
+http POST http://127.0.0.1:8000/api/users/2/block/ "Authorization: Bearer <MOD_TOKEN>"
 ```
 Risposta attesa:
 ```
@@ -505,6 +505,7 @@ json
   "message": "L'utente user_demo è stato bloccato con successo."
 }
 ```
+Se un utente è bloccato non può accedere alla piattaforma finché non viene sbloccato.\
 Se si esegue di nuovo lo stesso comando, l'utente viene riattivato:
 ```
 json
