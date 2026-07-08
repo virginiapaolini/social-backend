@@ -20,7 +20,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'password', 'email', 'bio']
 
     def create(self, validated_data):
-        # forza il ruolo a STANDARD per motivi di sicurezza durante la registrazione pubblica...
+        # forza il ruolo a STANDARD per motivi di sicurezza durante la registrazione pubblica...21
         user = CustomUser.objects.create_user(
             username=validated_data['username'],
             email=validated_data.get('email', ''),
