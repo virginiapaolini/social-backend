@@ -2,12 +2,7 @@
 # -ˏˋ⋆ social network REST API ⋆ˊˎ-
 
 Progetto finale di Back-end per il corso di PPM (2026).
-Benvenut* nella **Social Network REST API**, un ecosistema back-end performante e sicuro strutturato secondo i più moderni standard del web. L'applicazione non si limita a archiviare informazioni, ma dà vita a una vera e propria rete di interazioni sociali digitali:
-- *autenticazione blindata:* acesso sicuro garantito dallo standard **JSON Web Token (JWT)** con rotazione automatica delle chiavi di sessione.
-- *relazioni dinamiche:* un sistema di connessioni fluido che permette agli utenti di seguirsi a vicenda, creando una rete sociale personalizzata.
-- *feed intelligente:* un algoritmo ottimizzato che aggrega in tempo reale i contenuti pubblicati dagli utenti seguiti, ordinandoli cronologicamente per offrire un'esperienza d'uso naturale e immediata.
-- *interazioni ad alto coinvolgimento*: possibilità di esprimere apprezzamento tramite like dinamici e di partecipare alle discussioni con un sistema di commenti nidificato.
-- *controllo e moderazione (role-based access control):* una solida gerarchia di permessi protegge la community, separando i poteri degli utenti standard, dei moderatori (incaricati della sicurezza dei contenuti e del blocco utenti) e dell'amministratore.
+Benvenut* nella **Social Network REST API**, un ecosistema back-end performante e sicuro strutturato secondo i più moderni standard del web. L'applicazione non si limita a archiviare informazioni, ma dà vita a una vera e propria rete di interazioni sociali digitali!
 
 
 ## ⋆ tipo di progetto
