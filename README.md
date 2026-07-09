@@ -1,8 +1,8 @@
 
 # -ˏˋ⋆ social network REST API ⋆ˊˎ-
 
-Progetto finale di Back-end per il corso di PPM (2026).
-Benvenut* nella **Social Network REST API**, un ecosistema back-end performante e sicuro strutturato secondo i più moderni standard del web. L'applicazione non si limita a archiviare informazioni, ma dà vita a una vera e propria rete di interazioni sociali digitali!
+Progetto finale di Back-end per il corso di PPM (2026)./
+benvenut* nella **Social Network REST API**, un ecosistema back-end strutturato secondo standard moderni, dando vita ad una vera e propria rete di interazioni sociali digitali!
 
 
 ## ⋆ tipo di progetto
