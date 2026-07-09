@@ -1,22 +1,22 @@
 
-# -ˏˋ⋆ social network REST API ⋆ˊˎ-
+# -ˏˋ⋆ SOCIAL NETWORK REST API ⋆ˊˎ-
 
 Progetto finale di Back-end per il corso di PPM (2026).  
-benvenut* in **Social Network REST API**, un ecosistema back-end che dà vita ad una vera e propria rete di interazioni sociali digitali!
+Benvenut* in **Social Network REST API**, un ecosistema back-end che dà vita ad una vera e propria rete di interazioni sociali digitali.
 
 
-## ⋆ tipo di progetto
+## ⋆ Tipo di progetto
 
 **REST API**:  A back-end application with REST endpoints, token/JWT authentication, serializers or request validation, role-based permissions, JSON responses, and a documented testing workflow or minimal client.
 
 
-## ⋆ link di deployment online
+## ⋆ Link di deployment online
 
-il deployment è stato fatto su Render:
+Il deployment è stato fatto su Render:
 <https://social-backend-xwsc.onrender.com>
 
 
-## ⋆ descrizione del progetto
+## ⋆ Descrizione del progetto
 
 Questa applicazione è una REST API per un piccolo e semplice social network.
 
@@ -36,7 +36,7 @@ Sono presenti ruoli diversi, in particolare:
 - amministratore/superuser
 ---
 
-## ⋆ framework utilizzati
+## ⋆ Framework utilizzati
 
 - Python 3.11
 - Django
@@ -46,7 +46,7 @@ Sono presenti ruoli diversi, in particolare:
 
 ---
 
-## ⋆ funzionalità implementate
+## ⋆ Funzionalità implementate
 
 ### Utente pubblico/non autenticato
 
@@ -89,7 +89,7 @@ L'amministratore può:
 
 ---
 
-## ⋆ database locale SQLite
+## ⋆ Database locale SQLite
 
 Il progetto include un database SQLite locale:
 ```text
@@ -110,7 +110,7 @@ che permette di ricreare dati demo coerenti nel database locale.
 
 ---
 
-## ⋆ installazione locale
+## ⋆ Installazione locale
 
 ### 1. clonare il repository
 ```bash
@@ -138,7 +138,7 @@ python popola_db.py
 ```
 Questo comando crea utenti demo, post, commenti, like e relazioni follow.
 
-### 6. Avviare il server locale
+### 6. avviare il server locale
 ```bash
 python manage.py runserver
 ```
@@ -147,7 +147,7 @@ L'API sarà disponibile all'indirizzo:
 http://127.0.0.1:8000/
 ```
 ---
-## ⋆ account demo
+## ⋆ Account demo
 
 Dopo aver eseguito:
 ```bash
@@ -165,7 +165,7 @@ sono disponibili i seguenti account demo:
 
 ---
 
-## ⋆ base URL
+## ⋆ Base URL
 
 ### locale
 ```text
@@ -177,7 +177,7 @@ https://social-backend-xwsc.onrender.com
 ```
 ---
 
-## ⋆ documentazione endpoints API
+## ⋆ Documentazione endpoints API
 
 ### API home view
 
@@ -206,7 +206,7 @@ json
 ```
 ---
 
-### autenticazione e utenti
+### Autenticazione e utenti
 
 | Metodo | URL | Autenticazione | Ruolo consentito | Body JSON | Esempio risposta | Descrizione |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -219,7 +219,7 @@ json
 
 ---
 
-### post, feed, like e commenti
+### Post, feed, like e commenti
 
 | Metodo | URL | Autenticazione | Ruolo consentito | Body JSON | Esempio risposta | Descrizione |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -234,7 +234,7 @@ json
 
 ---
 
-## ⋆ workflow di test con HTTPie
+## ⋆ Workflow di test con HTTPie
 
 HTTPie è un client da terminale per testare API REST.
 
@@ -544,15 +544,15 @@ Al momento il progetto può essere testato principalmente tramite workflow manua
 
 ---
 
-## ⋆ note tecniche
+## ⋆ Note tecniche
 
-### autenticazione
+### Autenticazione
 
 L'API usa JWT. Dopo il login viene restituito un token `access`, da inviare negli endpoint protetti tramite header:
 ```text
 Authorization: Bearer <TOKEN>
 ```
-## ⋆ permessi
+### Permessi
 
 Le regole principali sono:
 
@@ -564,7 +564,7 @@ Le regole principali sono:
 - il blocco utenti è consentito solo ai moderatori
 - i nuovi utenti registrati pubblicamente vengono creati come utenti standard
 
-## ⋆ validazioni
+### Validazioni
 
 Sono presenti validazioni sui contenuti:
 
@@ -573,7 +573,7 @@ Sono presenti validazioni sui contenuti:
 
 ---
 
-## ⋆ struttura principale del progetto
+## ⋆ Struttura principale del progetto
 ```text
 PythonProject/
 ├── posts/
@@ -599,7 +599,7 @@ PythonProject/
 ```
 ---
 
-## ⋆ comandi rapidi
+## ⋆ Comandi rapidi
 
 Preparazione completa del progetto in locale:
 ```bash
@@ -624,6 +624,6 @@ Feed personalizzato:
 http GET http://127.0.0.1:8000/api/feed/ "Authorization: Bearer <TOKEN>"
 ```
 ⋆
-
+---
 Corso Progettazione e Produzione multimediale (2025/2026)\
 Virginia Paolini
