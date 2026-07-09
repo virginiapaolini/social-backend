@@ -12,9 +12,9 @@ benvenut* in **Social Network REST API**, un ecosistema back-end strutturato sec
 
 ## ⋆ link di deployment online
 
-Il deployment è stato fatto su Render:
+il deployment è stato fatto su Render:
 <https://social-backend-xwsc.onrender.com>
----
+
 
 ## ⋆ descrizione del progetto
 
